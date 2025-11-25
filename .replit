@@ -1,0 +1,36 @@
+run = "npm run web"
+entrypoint = "App.tsx"
+
+[nix]
+channel = "stable-23_05"
+
+[env]
+PATH = "/home/runner/$REPL_SLUG/.config/npm/node_global/bin:/home/runner/$REPL_SLUG/node_modules/.bin:$PATH"
+
+[packager]
+language = "nodejs"
+
+[packager.features]
+packageSearch = true
+guessImports = true
+enabledForHosting = false
+
+[languages]
+
+[languages.typescript]
+pattern = "**/{*.ts,*.tsx}"
+
+[languages.typescript.languageServer]
+start = "typescript-language-server --stdio"
+
+[deployment]
+run = ["sh", "-c", "npm run web"]
+deploymentTarget = "cloudrun"
+
+[[ports]]
+localPort = 19006
+externalPort = 80
+
+[[ports]]
+localPort = 19000
+externalPort = 3000
